@@ -1,10 +1,11 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: "export", // This tells Next.js to generate HTML files
-  basePath: "/test1", // Replace 'test1' with your exact repo name
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  output: "export",
+  trailingSlash: true,
   images: {
-    unoptimized: true, // GitHub Pages doesn't support Next.js image optimization
+    unoptimized: true,
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
