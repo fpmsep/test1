@@ -31,6 +31,47 @@ Or deploy from the command line:
 npm run deploy:cloudflare
 ```
 
+## AWS deployment
+
+This project is a static export, so the simplest AWS setup is **Amazon S3 + CloudFront**.
+
+### 1. Build the site
+
+```bash
+npm run build
+```
+
+This generates the static output in `out/`.
+
+### 2. Create an S3 bucket
+
+- Create a new S3 bucket for the site files.
+- Upload the contents of `out/` to the bucket.
+- If you want the bucket to serve files directly, enable static website hosting.
+
+### 3. Put CloudFront in front of the bucket
+
+- Create a CloudFront distribution with the S3 bucket as the origin.
+- Set `index.html` as the default root object.
+- If you are using the bucket as a private origin, configure an Origin Access Control or Origin Access Identity.
+
+### 4. Deploy updates
+
+Whenever you change the app, rebuild and upload again:
+
+```bash
+npm run build
+```
+
+Then sync the new `out/` files to S3 and let CloudFront serve the updated site.
+
+### Optional: AWS Amplify
+
+You can also deploy this app with AWS Amplify as a static site.
+
+- Build command: `npm run build`
+- Output directory: `out`
+
 ## Notes
 
 - The project is configured for static export in [`next.config.ts`](/home/fernando/projects/first/next.config.ts).
